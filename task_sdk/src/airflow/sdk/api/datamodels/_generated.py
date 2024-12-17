@@ -155,6 +155,9 @@ class VariableResponse(BaseModel):
     Variable schema for responses with fields that are needed for Runtime.
     """
 
+    model_config = ConfigDict(
+        extra="forbid",
+    )
     key: Annotated[str, Field(title="Key")]
     value: Annotated[str | None, Field(title="Value")] = None
 
@@ -164,6 +167,9 @@ class XComResponse(BaseModel):
     XCom schema for responses with fields that are needed for Runtime.
     """
 
+    model_config = ConfigDict(
+        extra="forbid",
+    )
     key: Annotated[str, Field(title="Key")]
     value: Annotated[Any, Field(title="Value")]
 
@@ -212,6 +218,9 @@ class TIRunContext(BaseModel):
     Response schema for TaskInstance run context.
     """
 
+    model_config = ConfigDict(
+        extra="forbid",
+    )
     dag_run: DagRun
     max_tries: Annotated[int, Field(title="Max Tries")]
     variables: Annotated[list[VariableResponse] | None, Field(title="Variables")] = None
