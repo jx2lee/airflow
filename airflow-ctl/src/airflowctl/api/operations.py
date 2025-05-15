@@ -397,10 +397,10 @@ class DagOperations(BaseOperations):
         except ServerResponseError as e:
             raise e
 
-    def delete(self, dag_id: str) -> DAGResponse | ServerResponseError:
+    def delete(self, dag_id: str) -> str | ServerResponseError:
         try:
             self.response = self.client.delete(f"dags/{dag_id}")
-            return DAGResponse.model_validate_json(self.response.content)
+            return dag_id
         except ServerResponseError as e:
             raise e
 
@@ -439,9 +439,9 @@ class DagOperations(BaseOperations):
         except ServerResponseError as e:
             raise e
 
-    def list_warning(self, dag_id: str) -> DAGWarningCollectionResponse | ServerResponseError:
+    def list_warning(self) -> DAGWarningCollectionResponse | ServerResponseError:
         try:
-            self.response = self.client.get(f"dags/{dag_id}/dagWarnings")
+            self.response = self.client.get("dagWarnings")
             return DAGWarningCollectionResponse.model_validate_json(self.response.content)
         except ServerResponseError as e:
             raise e
